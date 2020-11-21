@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Tax</title>
+</head>
+<body>
+<?php
+
+    if(isset($_POST["calc"])){
+        $income = $_POST['income'];
+        if($income <= 5000){
+            echo 0;
+        }elseif ($income > 5000 && $income <= 12500) {
+           $dif = $income - 5000;
+           $tax = (2 * $dif) / 100;
+           $net = $income - $tax;
+        }
+        
+    }
+
+    
+
+?>
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">Sallary Tax</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " data-toggle="tab" href="#brt">BRT</a>
+    </li>
+  </ul>
+    <!-- Tab panes -->
+    <div class="tab-content ">
+        <div id="home" class="container tab-pane active "><br>
+        <h2>Wage (Salary) Tax</h2>
+        <p>Employers are required to withhold Wage Tax from the employees. The Tax Amount depends on the total monthly income of the employee. There is no tax on salaries below 5,000 AFN.</p>
+            <form action="" method="POST" class="col-md-5">
+                <div class="form-group">
+                <label for="tax">What's your total monthly income (salary)?</label>
+                <input type="text" class="form-control" id="income"  placeholder="0" name="income">
+                </div>
+                <div class="form-group">
+                <label for="tax">Your total Wage Withholding Tax is:</label>
+                <input type="text" class="form-control" id="tax" placeholder="" name="tax"  value="">
+                </div>
+                 <div class="form-group">
+                <label for="tax">Your total Wage Withholding Tax is:</label>
+                <input type="text" class="form-control" id="net" placeholder="" name="tax"  value="">
+                </div>
+            </form>
+
+    </div>
+    <div id="brt" class="container tab-pane fade "><br>
+        <h2>Business Receipt Tax</h2>
+        <p>Please enter the total amount you have earned this quarter in sales. Businesses should pay 4% of their total sales to the Afghan government every quarter.</p>
+            <form action="" method="POST" class="col-md-5">
+                <div class="form-group">
+                <label for="tax">How much was your total receivable for this quarter? *in AFN</label>
+                <input type="text" class="form-control" id="bincome"  placeholder="0" name="income">
+                </div>
+                <div class="form-group">
+                <label for="tax">Your total Business Receipt Tax for this quarter is:</label>
+                <input type="text" class="form-control" id="btax" placeholder="" name="tax"  value="">
+                </div>
+            </form>
+       
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#income").keyup(function(){
+            var income = $(this).val();
+            if(income <= 5000){
+                $("#tax").val(0);
+                $("#net").val(0);
+            }else if( income > 5000 && income <= 12500){
+                var dif = income - 5000;
+                var tax = (2 * dif) / 100;
+                var net = income - tax;
+                $("#tax").val(tax);
+                $("#net").val(net);
+            }else if( income > 12500 && income <= 100000){
+                dif = income - 12500;
+                tax = (10 * dif) / 100 + 150;
+                net = income - tax;
+                $("#tax").val(tax);
+                $("#net").val(net);
+            }
+            else if( income > 100000 ){
+                dif = income - 100000;
+                tax = (20 * dif) / 100 + 8900;
+                net = income - tax;
+                $("#tax").val(tax);
+                $("#net").val(net);
+            }
+        });
+
+        $("#bincome").keyup(function(){
+            var bincome = $(this).val();
+            var btax = (4 * bincome) / 100;
+            $("#btax").val(btax);
+        });
+    });
+</script>
+</body>
+</html>
