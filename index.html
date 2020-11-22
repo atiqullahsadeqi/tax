@@ -17,23 +17,7 @@
     <title>Tax</title>
 </head>
 <body>
-<?php
 
-    if(isset($_POST["calc"])){
-        $income = $_POST['income'];
-        if($income <= 5000){
-            echo 0;
-        }elseif ($income > 5000 && $income <= 12500) {
-           $dif = $income - 5000;
-           $tax = (2 * $dif) / 100;
-           $net = $income - $tax;
-        }
-        
-    }
-
-    
-
-?>
 <div class="container">
   <ul class="nav nav-tabs">
     <li class="nav-item">
